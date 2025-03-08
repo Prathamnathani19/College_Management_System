@@ -1,0 +1,69 @@
+body {
+    background: linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
+    color: #fff;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.table-dark th, .table-dark td, .table-dark thead th {
+    border-color: #454d55;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.modal-title, .form-control, .btn {
+    color: #fff;
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #3a1c71;
+    border-color: #3a1c71;
+}
+
+.btn-primary:hover {
+    background-color: #2e0f5b;
+    border-color: #2e0f5b;
+}
+
+.btn-secondary {
+    background-color: #d76d77;
+    border-color: #d76d77;
+}
+
+.btn-secondary:hover {
+    background-color: #b35c63;
+    border-color: #b35c63;
+}
+
+.btn-warning {
+    background-color: #ffaf7b;
+    border-color: #ffaf7b;
+}
+
+.btn-warning:hover {
+    background-color: #e6996d;
+    border-color: #e6996d;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+
+.btn-danger:hover {
+    background-color: #c12e2a;
+    border-color: #c12e2a;
+}
+

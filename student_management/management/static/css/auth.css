@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.login-box {
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.textbox {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.textbox input {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    font-size: 18px;
+}
+
+.textbox label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    pointer-events: none;
+    transition: 0.5s;
+    color: #fff;
+}
+
+.textbox input:focus ~ label,
+.textbox input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #ffaf7b;
+    font-size: 14px;
+}
+
+.btn {
+    width: 100%;
+    background: #ffaf7b;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #d76d77;
+}
+
+.remember-me {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.remember-me a {
+    color: #ffaf7b;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.remember-me input {
+    margin-right: 5px;
+}
+
+p {
+    text-align: center;
+    color: #fff;
+}
+
+a {
+    color: #ffaf7b;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
