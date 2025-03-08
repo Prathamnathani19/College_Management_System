@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/auth.css' %}">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url("{% static 'images/signup-bg.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .signup-box {
+            color: white;
+        }
+        .signup-box h2 {
+            font-weight: bold;
+        }
+        .textbox {
+            position: relative;
+            margin: 20px 0;
+        }
+        .textbox input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 5px;
+            color: black;
+            font-size: 16px;
+        }
+        .textbox label {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: #512da8;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #311b92;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: #ffcc00; 
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 5px;
+            display: none;
+            text-align: left;
+            padding: 5px 10px;
+            background: rgba(255, 0, 0, 0.1); 
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="signup-box">
+            <h2>Sign Up</h2>
+            <form id="signup-form" method="POST" onsubmit="return validateForm()">
+                {% csrf_token %}
+                <div class="textbox">
+                    <input type="text" id="un" name="un" required placeholder="Username" onfocus="this.placeholder = 'Username'" onblur="checkUsername(); this.placeholder = ' '">
+                    <label for="un">Username</label>
+                    <p class="error-message" id="username-error"></p>
+                </div>
+                
+                <div class="textbox">
+                    <input type="email" id="email" name="email" required placeholder="Email" onfocus="this.placeholder = 'Email'" onblur="checkEmail(); this.placeholder = ' '">
+                    <label for="email">Email</label>
+                    <p class="error-message" id="email-error"></p>
+                </div>
+                
+                <div class="textbox">
+                    <input type="password" id="pw1" name="pw1" required placeholder="Password" onfocus="this.placeholder = 'Password'" onblur="this.placeholder = ' '">
+                    <label for="pw1">Password</label>
+                </div>
+                
+                <div class="textbox">
+                    <input type="password" id="pw2" name="pw2" required placeholder="Confirm Password" onfocus="this.placeholder = 'Password'" onblur="this.placeholder = ' '">
+                    <label for="pw2">Confirm Password</label>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="{% url 'ulogin' %}">Log in here</a></p>
+            <br><br>
+            <p> Pratham Nathani--06030524 </p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validateUsername(username) {
+            const regex = /^[a-zA-Z0-9_]+$/;
+            return regex.test(username);
+        }
+
+        function checkUsername() {
+            const usernameInput = document.getElementById('un');
+            const username = usernameInput.value;
+            const msg = document.getElementById('username-error');
+
+            if (username.trim() === "") {
+                msg.innerText = "Username cannot be blank.";
+                msg.style.display = 'block';
+                return false;
+            } else if (!validateUsername(username)) {
+                msg.innerText = "Username should not contain special characters.";
+                msg.style.display = 'block';
+                return false;
+            } else {
+                msg.style.display = 'none';
+            }
+
+            fetch(`/check_username/?username=${username}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exists) {
+                        msg.innerText = "Username already exists.";
+                        msg.style.display = 'block';
+                    } else {
+                        msg.style.display = 'none';
+                    }
+                });
+        }
+
+        function checkEmail() {
+            const emailInput = document.getElementById('email');
+            const email = emailInput.value;
+            const msg = document.getElementById('email-error');
+
+            if (email.trim() === "") {
+                msg.innerText = "Email cannot be blank.";
+                msg.style.display = 'block';
+                return false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                msg.innerText = "Please enter a valid email address.";
+                msg.style.display = 'block';
+                return false;
+            } else {
+                msg.style.display = 'none';
+            }
+
+            fetch(`/check_email/?email=${email}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exists) {
+                        msg.innerText = "Email already exists.";
+                        msg.style.display = 'block';
+                    } else {
+                        msg.style.display = 'none';
+                    }
+                });
+        }
+
+        function validateForm() {
+            const username = document.getElementById('un').value;
+            const email = document.getElementById('email').value;
+            const usernameError = document.getElementById('username-error');
+            const emailError = document.getElementById('email-error');
+            
+            let valid = true;
+
+            if (username.trim() === "") {
+                usernameError.innerText = "Username cannot be blank.";
+                usernameError.style.display = 'block';
+                valid = false;
+            } else if (!validateUsername(username)) {
+                usernameError.innerText = "Username should not contain special characters.";
+                usernameError.style.display = 'block';
+                valid = false;
+            } else {
+                usernameError.style.display = 'none';
+            }
+
+            if (email.trim() === "") {
+                emailError.innerText = "Email cannot be blank.";
+                emailError.style.display = 'block';
+                valid = false;
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                emailError.innerText = "Please enter a valid email address.";
+                emailError.style.display = 'block';
+                valid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            return valid;
+        }
+    </script>
+</body>
+</html>

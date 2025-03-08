@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departments</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Student Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'uhome' %}">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'department_list' %}">Department</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'student_list' %}">Student</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-white">Departments</h2>
+                <a href="{% url 'add_department' %}" class="btn btn-primary mb-3">Add Department</a>
+
+                <!-- Department Table -->
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th>Did</th>
+                            <th>Dname</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for department in departments %}
+                        <tr>
+                            <td>{{ department.Did }}</td>
+                            <td>{{ department.Dname }}</td>
+                            <td>
+                                <a href="{% url 'department_edit' department.Did %}" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{% url 'delete_department' department.Did %}" class="btn btn-sm btn-danger" onclick="return confirmDelete()">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <a href="{% url 'uhome' %}" class="btn btn-secondary">Back to Home</a>
+                <br><br><br><br>
+                <center>
+                <h4>Pratham Nathani--06030524</h4>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this entry?');
+        }
+    </script>
+</body>
+</html>

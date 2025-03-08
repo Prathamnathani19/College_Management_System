@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Department</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+    <style>
+        body {
+            background: linear-gradient(to right, #4b2b7f, #e9658f);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .heading-container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .heading-container h1 {
+            color: white;
+            font-weight: bold;
+            margin: 0;
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-group label {
+            color: white;
+            font-weight: bold;
+        }
+        .form-control {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            padding: 10px;
+        }
+        .form-control::placeholder {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        .btn-primary {
+            background-color: #512da8;
+            border: none;
+            margin-top: 10px;
+        }
+        .btn-primary:hover {
+            background-color: #311b92;
+        }
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: black;
+            border: none;
+            margin-top: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="heading-container">
+        <h1>Add Department</h1>
+    </div>
+    <div class="form-container">
+        <form id="departmentForm" method="POST" onsubmit="return validateForm()">
+            {% csrf_token %}
+            {{ form.as_p }}
+            
+            <div id="errorMessages"></div>
+
+            <button type="submit" class="btn btn-primary btn-block">Add Department</button>
+        </form>
+        <a href="{% url 'department_list' %}" class="btn btn-secondary btn-block mt-3">Back to Department List</a>
+        <br><br><br><br>
+                <center>
+                <h4>               Pratham Nathani--06030524                   <h4>
+                </center>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validateForm() {
+            var Did = document.getElementById('id_Did').value;
+            var Dname = document.getElementById('id_Dname').value;
+            var errors = [];
+            var errorMessages = document.getElementById('errorMessages');
+
+            // Clear previous error messages
+            errorMessages.innerHTML = "";
+
+            // Did validation
+            if (!/^[1-9]\d*$/.test(Did)) {
+                errors.push("Did should be a positive integer.");
+            }
+
+            // Dname validation
+            if (!/^[a-zA-Z\s]+$/.test(Dname)) {
+                errors.push("Dname should only contain letters and spaces.");
+            }
+
+            // Show error messages
+            if (errors.length > 0) {
+                errors.forEach(function (error) {
+                    var p = document.createElement('p');
+                    p.textContent = error;
+                    p.classList.add('error');
+                    errorMessages.appendChild(p);
+                });
+                return false; 
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

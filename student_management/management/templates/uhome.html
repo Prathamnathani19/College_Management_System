@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .navbar {
+            margin-bottom: 0;
+        }
+        .background-image {
+            background: url("{% static 'images/college-banner.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            height: calc(100vh - 56px); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: zoomIn 5s ease-in-out; 
+        }
+        .content {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out, slideIn 2s ease-in-out;
+        }
+        .content h1 {
+            color: white;
+            font-weight: bold;
+            animation: bounceIn 2s ease-in-out 1s; 
+        }
+        .content p {
+            color: white;
+            font-size: 1.2em;
+            animation: fadeInText 3s ease-in-out 2s; 
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        @keyframes zoomIn {
+            from {
+                transform: scale(1.1);
+                opacity: 0.5;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        {% comment %} <a class="navbar-brand" href="{% url 'uhome' %}">Student Management</a> {% endcomment %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'uhome' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'department_list' %}">Department</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'student_list' %}">Student</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}" onclick="return confirmLogout();">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="background-image">
+        <div class="content">
+            <h1>College Management System</h1>
+           
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script> 
+        function confirmLogout() {
+            return confirm('Are you sure you want to logout?');
+        }
+    </script>
+</body>
+</html>
